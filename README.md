@@ -8,4 +8,14 @@ Run `swag init -g benchmark-ws.go` to update the API documentation
 
 `go run benchmark-ws.go`
 
-doc url: http://localhost:3000/swagger/index.html
+doc url: http://localhost:1323/swagger/index.html
+
+## Docker-compose
+
+### Build
+
+`docker-compose build`
+
+### Run
+
+`docker-compose up -d`

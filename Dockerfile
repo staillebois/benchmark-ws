@@ -16,10 +16,13 @@ COPY go.mod go.sum ./
 # Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed 
 RUN go mod download 
 
+# Install swag
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
 # Copy the source from the current directory to the working Directory inside the container 
 COPY . .
 
-RUN swag init benchmark-ws.go
+RUN swag init -g benchmark-ws.go
 
 # Build the Go app
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o benchmark-ws .

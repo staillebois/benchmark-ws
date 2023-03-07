@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"net/http"
 
+	"benchmark-ws/controllers"
 	_ "benchmark-ws/docs"
 
 	"github.com/gin-gonic/gin"
@@ -18,26 +18,11 @@ import (
 // @schemes http https
 func main() {
 	r := gin.New()
-	url := ginSwagger.URL("http://localhost:3000/swagger/doc.json")
+	url := ginSwagger.URL("http://localhost:1323/swagger/doc.json")
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-	r.GET("/healthcheck", HealthCheck)
+	r.GET("/healthcheck", controllers.HealthCheck)
 
-	if err := r.Run(":3000"); err != nil {
+	if err := r.Run(":1323"); err != nil {
 		log.Fatal(err)
 	}
-}
-
-// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags root
-// @Accept */*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router /healthcheck [get]
-func HealthCheck(c *gin.Context) {
-	res := map[string]interface{}{
-		"data": "Server is up and running",
-	}
-	c.JSON(http.StatusOK, res)
 }
